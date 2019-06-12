@@ -1,11 +1,11 @@
 [package]
 name = "typescript-definitions"
-version = "0.1.10"
+version = "0.2.0"
 description = "serde support for exporting Typescript definitions"
 readme = "README.md"
-authors = ["Tim Ryan <id@timryan.org>", "Sam Rijs <srijs@airpost.net>" , "Ian Castleden <ian.castleden@gmail.com>"]
+authors = ["Tim Ryan <id@timryan.org>", "Sam Rijs <srijs@airpost.net>" , "Ian Castleden <ian.castleden@gmail.com>", "Ari Lotter <me@arilotter.com>"]
 license = "MIT/Apache-2.0"
-repository = "https://github.com/arabidopsis/typescript-definitions"
+repository = "https://github.com/arilotter/typescript-definitions"
 keywords =["typescript", "serde"]
 categories = ["data-structures", "development-tools", "wasm" , "web-programming"]
 edition = "2018"
