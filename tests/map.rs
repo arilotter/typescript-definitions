@@ -41,6 +41,23 @@ fn untagged_enum() {
         @r###"export type Untagged = 
  | { id: number; attr: string } 
  | { id: number; attr2: string[] }"###
+    )
+}
+
+#[test]
+fn untagged_units_enum() {
+    #[derive(Serialize, TypeScriptify)]
+    #[serde(untagged)]
+    enum UntaggedUnits {
+        V1,
+        V2,
+    }
+
+    assert_snapshot_matches!(
+        UntaggedUnits::type_script_ify(),
+        @r###"export type UntaggedUnits = 
+ | "V1" 
+ | "V2""###
 
     )
 }

@@ -32,26 +32,26 @@ See [Type Guards](#type-guards) below.
 <!-- vscode-markdown-toc -->
 
 * [Motivation 🦀](#Motivation)
-	* [example:](#example:)
+    * [example:](#example:)
 * [Using `typescript-definitions`](#Usingtypescript-definitions)
-	* [Getting the toolchains](#Gettingthetoolchains)
+    * [Getting the toolchains](#Gettingthetoolchains)
 * [Using `type_script_ify`](#Usingtype_script_ify)
 * [Features](#Features)
 * [Serde attributes.](#Serdeattributes.)
 * [typescript-definition attributes](#typescript-definitionattributes)
 * [Type Guards](#TypeGuards)
 * [Limitations](#Limitations)
-	* [Limitations of JSON](#LimitationsofJSON)
-	* [Limitations of Generics](#LimitationsofGenerics)
+    * [Limitations of JSON](#LimitationsofJSON)
+    * [Limitations of Generics](#LimitationsofGenerics)
 * [Examples](#Examples)
 * [Problems](#Problems)
 * [Credits](#Credits)
 * [License](#License)
 
 <!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
+    numbering=false
+    autoSave=true
+    /vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
 
@@ -363,14 +363,14 @@ which will check only the first row.
 ### Example
 
 ```rust
-use serde::Serialize;
-use typescript_definitions::{TypeScriptify, TypeScriptifyTrait};
-#[derive(TypeScriptify)]
-pub struct Maybe {
-    maybe : Option<String>
-}
+// use serde::Serialize;
+// use typescript_definitions::{TypeScriptify, TypeScriptifyTrait};
+// #[derive(TypeScriptify)]
+// pub struct Maybe {
+//     maybe : Option<String>
+// }
 
-println!("{}", Maybe::type_script_guard().unwrap());
+// println!("{}", Maybe::type_script_guard().unwrap());
 ```
 
 will print (after passing through prettier):
@@ -423,7 +423,7 @@ let v : IntMap = { intmap: {  "6": 6, 4: 4 } };
 So the generated guard also checks for integer keys with `(+key !== NaN)`.
 
 You can short circuit any field with some attribute
-markup 
+markup
 
 * `ts_type` specify the serialization.
 * `ts_guard`: verify the type as if it was this
@@ -454,7 +454,7 @@ pub struct DependsOnValue {
 }
 ```
 Since the monomorphization of `Value` in `DependsOnValue` is one of
-`number`, `string` or `boolean`. 
+`number`, `string` or `boolean`.
 
 Beyond this you will have to write your own guards e.g.:
 
@@ -481,7 +481,7 @@ for generic type `value: T` yourself. viz:
 const isT = <T>(o: any, typename: string): o is T => {
     // typename is the stringified type that we are
     // expecting e.g. `number` or `{a: number, b: string}[]` etc.
-    // 
+    //
     if (typename !== "number[]") return false;
     if (!Array.isArray(o)) return false;
     for (let v of o) {
@@ -568,7 +568,7 @@ enum Color {
     Blue
 }
 ```
-is rendered as a typescript enum:
+is rendered as a typescript enum, unless the enum is marked `#[serde(untagged)]`:
 
 ```typescript
 enum Color {

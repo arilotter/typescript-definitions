@@ -567,7 +567,7 @@ enum Color {
     Blue
 }
 ```
-is rendered as a typescript enum:
+is rendered as a typescript enum, unless the enum is marked `#[serde(untagged)]`:
 
 ```typescript
 enum Color {

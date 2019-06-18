@@ -56,7 +56,7 @@ impl<'a> ParseContext<'_> {
             skip_variants.push(v);
         }
 
-        let mut is_enum = true;
+        let mut is_enum = true && !taginfo.untagged;
         for v in &skip_variants {
             match v.style {
                 ast::Style::Unit => continue,
