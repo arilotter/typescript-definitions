@@ -56,44 +56,6 @@ impl<'a> ParseContext<'_> {
             skip_variants.push(v);
         }
 
-        let mut is_enum = true && !taginfo.untagged;
-        for v in &skip_variants {
-            match v.style {
-                ast::Style::Unit => continue,
-                _ => {
-                    is_enum = false;
-                    break;
-                }
-            }
-        }
-        if is_enum {
-            let v = &skip_variants
-                .iter()
-                .map(|v| v.attrs.name().serialize_name()) // use serde name instead of v.ident
-                .collect::<Vec<_>>();
-            let k = v.iter().map(|v| ident_from_str(&v)).collect::<Vec<_>>();
-            let verify = if self.gen_guard {
-                let obj = &self.arg_name;
-                let o = (0..v.len()).map(|_| obj.clone());
-                let eq = (0..v.len()).map(|_| eq());
-
-                Some(quote!(
-                    {
-
-                        if (!((#(#o #eq #v)||*))) return false;
-                        return true;
-                    }
-                ))
-            } else {
-                None
-            };
-            return QuoteMaker {
-                body: quote! ( { #(#k = #v),* } ),
-                verify,
-                is_enum: true,
-            };
-        }
-
         let content = skip_variants
             .iter()
             .map(|variant| match variant.style {
