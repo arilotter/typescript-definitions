@@ -36,4 +36,4 @@ export-typescript = []
 serde-wasm-bindgen = []
 test = []
 type-guards = []
-
+syn-extra-traits = ["syn/extra-traits"]

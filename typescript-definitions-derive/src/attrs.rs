@@ -12,7 +12,7 @@ use quote::quote;
 use proc_macro2::TokenStream;
 use syn::{Attribute, Ident, Lit, Meta, /* MetaList,*/ MetaNameValue, NestedMeta};
 
-#[derive(Debug)]
+#[cfg_attr(feature = "syn-extra-traits", derive(Debug))]
 pub struct Attrs {
     pub comments: Vec<String>,
     pub guard: bool,
