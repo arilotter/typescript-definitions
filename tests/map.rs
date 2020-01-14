@@ -38,7 +38,7 @@ fn untagged_enum() {
 
     assert_snapshot_matches!(
         Untagged::type_script_ify(),
-        @r###"export type Untagged = 
+        @r###"export type Untagged =
  | { id: number; attr: string } 
  | { id: number; attr2: string[] }"###
     )
@@ -55,7 +55,7 @@ fn untagged_units_enum() {
 
     assert_snapshot_matches!(
         UntaggedUnits::type_script_ify(),
-        @r###"export type UntaggedUnits = 
+        @r###"export type UntaggedUnits =
  | "V1" 
  | "V2""###
 
@@ -77,6 +77,19 @@ fn external_enum() {
 export type External = 
  | { V1: { id: number; attr: string } } 
  | { V2: { id: number; attr2: string[] } }"###
+    )
+}
+
+#[test]
+fn array_of_complex_type() {
+    #[derive(Serialize, TypeScriptify)]
+    struct Complex {
+        foo: [Option<u8>; 2],
+    }
+
+    assert_snapshot_matches!(
+    Complex::type_script_ify(),
+        @r###"export type Complex = { foo: Array<number | null>}"###
     )
 }
 
