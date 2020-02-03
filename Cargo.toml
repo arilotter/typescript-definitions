@@ -33,6 +33,7 @@ arrayvec = { version="0.4.10", features = ["serde-1"] }
 [features]
 # default = ["type-guards"]
 export-typescript = ["typescript-definitions-derive/export-typescript"]
+serde-wasm-bindgen = ["typescript-definitions-derive/serde-wasm-bindgen"]
 test = ["typescript-definitions-derive/test"]
 type-guards = ["typescript-definitions-derive/type-guards"]
 

@@ -33,6 +33,7 @@ insta = "0.6.2"
 
 [features]
 export-typescript = []
+serde-wasm-bindgen = []
 test = []
 type-guards = []
 

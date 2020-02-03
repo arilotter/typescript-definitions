@@ -33,11 +33,17 @@ impl<'a> FieldContext<'a> {
             "Vec" | "VecDeque" | "LinkedList" if ts.args.len() == 1 => {
                 self.type_to_array(&ts.args[0])
             }
+            #[cfg(not(feature = "serde-wasm-bindgen"))]
             "HashMap" | "BTreeMap" if ts.args.len() == 2 => {
                 let k = to_ts(&ts.args[0]);
                 let v = to_ts(&ts.args[1]);
-                // quote!(Map<#k,#v>)
                 quote!( { [key in #k]:#v } )
+            }
+            #[cfg(feature = "serde-wasm-bindgen")]
+            "HashMap" | "BTreeMap" | "IndexMap" if ts.args.len() == 2 => {
+                let k = to_ts(&ts.args[0]);
+                let v = to_ts(&ts.args[1]);
+                quote!(Map<#k,#v>)
             }
             "HashSet" | "BTreeSet" if ts.args.len() == 1 => {
                 let k = to_ts(&ts.args[0]);
