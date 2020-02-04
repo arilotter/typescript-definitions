@@ -50,9 +50,15 @@ impl<'a> FieldContext<'a> {
                 //quote!(Set<#k>)
                 quote! ( #k[] )
             }
+            #[cfg(not(feature = "serde-wasm-bindgen"))]
             "Option" if ts.args.len() == 1 => {
                 let k = to_ts(&ts.args[0]);
                 quote!(  #k | null  )
+            }
+            #[cfg(feature = "serde-wasm-bindgen")]
+            "Option" if ts.args.len() == 1 => {
+                let k = to_ts(&ts.args[0]);
+                quote!(  #k | undefined  )
             }
             "Result" if ts.args.len() == 2 => {
                 let k = to_ts(&ts.args[0]);
